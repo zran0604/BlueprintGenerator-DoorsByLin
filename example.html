@@ -1,0 +1,25 @@
+<html>
+   <body>
+      <canvas id="graphCanvas" width="200" height="100" style="border:1px solid #000000;">
+      </canvas>
+      <input id="inputWidth" value="50">
+      <input type="button" value="Refresh" onclick="refreshCanvas()">
+      <input type="button" value="Print" onclick="window.print()">
+
+      <script>
+          function refreshCanvas() {
+            var w = document.getElementById("inputWidth").value;
+            var canvas = document.getElementById("graphCanvas");
+            var context = canvas.getContext("2d");
+            context.beginPath();
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.moveTo(0, 0);
+            context.lineTo(w, 100);
+            context.lineTo(200, 50);
+            context.stroke();
+            context.fillText(w, 20, 90);
+          }
+      </script>
+
+   </body>
+</html>
