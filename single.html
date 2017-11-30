@@ -1,0 +1,86 @@
+<html>
+   <body>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <input type="label" value="宽为2000，高为1000的铁板" style="border:0px">
+      <br>
+      <canvas id="graphCanvas" width="1000" height="500" style="border:1px solid #000000;">
+      </canvas>
+      <br>
+      <input type="label" value="客户给出的宽度" style="width:100px" style="border:0px">
+      <input id="inputWidth" value="50">
+      <br>
+      <input type="label" name="" value="需要减去的固定值" style="width:100px" style="border:0px">
+      <input id="D1" value="80" style="width: 50px">
+      <input id="D2" value="7" style="width: 50px">
+      <br>
+      <input type="label" name="" value="前板竖弯长度" style="width:100px" style="border:0px">
+      <input id="x" value="12" style="width: 50px">
+      <br>
+      <input type="label" name="" value="前板横弯长度" style="width:100px" style="border:0px">
+      <input id="y" value="15" style="width: 50px">
+      <br>
+      <input type="label" name="" value="后板竖弯长度" style="width:100px" style="border:0px">
+      <input id="w" value="68" style="width: 50px">
+      <br>
+      <input type="label" name="" value="后板横弯长度" style="width:100px" style="border:0px">
+      <input id="z" value="9" style="width: 50px">
+      <br>
+      <input type="button" value="Refresh" onclick="refreshCanvas()">
+      <input type="button" value="Print" onclick="window.print()">
+
+      <script>
+          function refreshCanvas() {
+          	var v = 0.5;
+            var a = document.getElementById("inputWidth").value - document.getElementById("D1").value - document.getElementById("D2").value;
+            var b = a - document.getElementById("y").value * 2;
+            var A = a + document.getElementById("x").value * 2 + document.getElementById("y").value * 2;
+            var B = b + document.getElementById("w").value * 2 + document.getElementById("z").value * 2;
+
+            var p = 1000 - (1000 - A)/2;
+            var w = document.getElementById("inputWidth").value;
+            var canvas = document.getElementById("graphCanvas");
+            var context = canvas.getContext("2d");
+            context.beginPath();
+
+            // context.clearRect(0, 0, canvas.width, canvas.height);
+            // context.moveTo(0,0);
+            // context.lineTo(0,p);
+            // context.lineTo(canvas.width,p);
+            // context.stroke();
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            // context.moveTo(0,0);
+            context.moveTo(0,p * v);
+            context.lineTo(canvas.width,p * v);
+
+            context.moveTo(0,canvas.height - p*v);
+            context.lineTo(canvas.width,canvas.height - p*v);
+            context.stroke();
+            
+      		
+            
+            
+
+            /*
+            var w = document.getElementById("inputWidth").value;
+            var canvas = document.getElementById("graphCanvas");
+            var context = canvas.getContext("2d");
+            context.beginPath();
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.moveTo(0, 0);
+            context.lineTo(w, 100);
+            context.lineTo(200, 50);
+            context.stroke();
+            context.fillText(w, 20, 90);
+            */
+          }
+      </script>
+
+      <a href = "#" onclick = "alert(refreshCanvas.p)">点这里</a>
+
+      <!-- <pre>
+      	document.getElementById("inputWidth").value.width;
+      </pre> -->
+
+   </body>
+</html>
