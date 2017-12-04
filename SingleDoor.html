@@ -1,0 +1,100 @@
+<html>
+   <body>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      
+      <br>
+      客户给出的宽度
+      <!-- <input type="label" value="客户给出的宽度" style="width:150px" style="border:0px"> -->
+      <input id="inputWidth" value="860">
+      <br>
+      客户给出的高度
+      <!-- <input type="label" value="客户给出的高度" style="width:150px" style="border:0px"> -->
+      <input id="inputHeight" value="2000">
+      <br>
+    
+
+      <input type="button" value="Refresh" onclick="refreshCanvas()">
+      <input type="button" value="Print" onclick="window.print()">
+
+      <br>
+      前板横向截取坐标
+      <input type="label" id="qianhengjiedianzuobiao1" value="0">
+      <input type="label" id="qianhengjiedianzuobiao2" value="0">
+      <br>
+      前板纵向截取坐标
+      <input type="label" id="qianzongjiedianzuobiao1" value="0">
+      <input type="label" id="qianzongjiedianzuobiao2" value="0">
+      <br>
+      后板横向截取坐标
+      <input type="label" id="houhengjiedianzuobiao1" value="0">
+      <input type="label" id="houhengjiedianzuobiao2" value="0">
+      <br>
+      后板纵向截取坐标
+      <input type="label" id="houzongjiedianzuobiao1" value="0">
+      <input type="label" id="houzongjiedianzuobiao2" value="0">
+
+      <br>
+      <canvas id="graphCanvasHeng" width="800" height="1000" style="border:1px solid #000000;">
+      </canvas>
+
+      <script>
+          function refreshCanvas() {
+          	var v = 0.5;
+
+            var a = document.getElementById("inputWidth").value - 80 - 7;
+            var b = a - 15*2;
+            var A = a + 12*2 + 15*2;
+            var B = b + 9*2 + 68*2;
+            var p = 1000 - Math.round((1000 - A)/2);//四舍五入
+            var q = 1000 - Math.round((1000 - B)/2);
+
+            document.getElementById("qianhengjiedianzuobiao1").value = p;
+            document.getElementById("qianhengjiedianzuobiao2").value = 1000 - p;
+
+            document.getElementById("houhengjiedianzuobiao1").value = q;
+            document.getElementById("houhengjiedianzuobiao2").value = 1000 - q;
+
+            var graphCanvasHeng = document.getElementById("graphCanvasHeng");
+            var contextFront = graphCanvasHeng.getContext("2d");
+            contextFront.beginPath();
+            //前门版横截图
+            contextFront.clearRect(0, 0, graphCanvasHeng.width, graphCanvasHeng.height);
+            contextFront.moveTo(165, 100);
+            contextFront.lineTo(150, 100);
+            contextFront.fillText(15, 150, 110);
+            contextFront.lineTo(150, 88);
+            contextFront.fillText(12, 135, 95);
+            contextFront.lineTo(650, 88);
+            contextFront.fillText(a, 400, 85);
+            contextFront.lineTo(650, 100);
+            contextFront.fillText(12, 650, 95);
+            contextFront.lineTo(635, 100);
+            contextFront.fillText(15, 635, 110);
+
+            //后门版横截图
+            contextFront.moveTo(156,99);
+            contextFront.lineTo(165,99);
+            contextFront.fillText(9, 158, 98);
+            contextFront.lineTo(165,167);
+            contextFront.fillText(68, 150, 140);
+            contextFront.lineTo(635,167);
+            contextFront.fillText(b, 400, 180);
+            contextFront.lineTo(635,99);
+            contextFront.fillText(68, 640, 140);
+            contextFront.lineTo(626,99);
+            contextFront.fillText(9, 625, 98);
+            contextFront.stroke();
+
+            // alert(p);
+          	
+            
+
+
+            
+          }
+      </script>
+
+
+
+   </body>
+</html>

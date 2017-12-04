@@ -6,35 +6,59 @@
       <canvas id="graphCanvas" width="1000" height="500" style="border:1px solid #000000;">
       </canvas>
       <br>
-      <input type="label" value="客户给出的宽度" style="width:100px" style="border:0px">
-      <input id="inputWidth" value="50">
+      <input type="label" value="客户给出的宽度" style="width:150px" style="border:0px">
+      <input id="inputWidth" value="860">
       <br>
-      <input type="label" name="" value="需要减去的固定值" style="width:100px" style="border:0px">
-      <input id="D1" value="80" style="width: 50px">
-      <input id="D2" value="7" style="width: 50px">
+      <input type="label" value="客户给出的高度" style="width:150px" style="border:0px">
+      <input id="inputHeight" value="2000">
       <br>
-      <input type="label" name="" value="前板竖弯长度" style="width:100px" style="border:0px">
-      <input id="x" value="12" style="width: 50px">
+      <input type="label" name="" value="横 需要减去的固定值" style="width:150px" style="border:0px">
+      <input id="wD1" value="80" style="width: 50px">
+      <input id="wD2" value="7" style="width: 50px">
       <br>
-      <input type="label" name="" value="前板横弯长度" style="width:100px" style="border:0px">
-      <input id="y" value="15" style="width: 50px">
+      <input type="label" name="" value="纵 需要减去的固定值" style="width:150px" style="border:0px">
+      <input id="hD1" value="80" style="width: 50px">
+      <input id="hD2" value="7" style="width: 50px">
       <br>
-      <input type="label" name="" value="后板竖弯长度" style="width:100px" style="border:0px">
-      <input id="w" value="68" style="width: 50px">
+      <input type="label" name="" value="横 前板竖弯长度" style="width:150px" style="border:0px">
+      <input id="wx" value="12" style="width: 50px">
       <br>
-      <input type="label" name="" value="后板横弯长度" style="width:100px" style="border:0px">
-      <input id="z" value="9" style="width: 50px">
+      <input type="label" name="" value="横 前板横弯长度" style="width:150px" style="border:0px">
+      <input id="wy" value="15" style="width: 50px">
       <br>
+      <input type="label" name="" value="纵 前板横弯长度" style="width:150px" style="border:0px">
+      <input id="hx" value="15" style="width: 50px">
+      <br>
+      
+      <br>
+      <input type="label" name="" value="横 后板竖弯长度" style="width:150px" style="border:0px">
+      <input id="ww" value="68" style="width: 50px">
+      <br>
+      <input type="label" name="" value="横 后板横弯长度" style="width:150px" style="border:0px">
+      <input id="wz" value="9" style="width: 50px">
+      <br>
+      <input type="label" name="" value="纵 前后门板的高度差" style="width:150px" style="border:0px">
+      <input id="hD3" value="15" style="width: 50px">
+      <br> 
+      <input type="label" name="" value="纵 后板横弯长度" style="width:150px" style="border:0px">
+      <input id="hy" value="15" style="width: 50px">
+      <br>
+
+
+
+
+
       <input type="button" value="Refresh" onclick="refreshCanvas()">
       <input type="button" value="Print" onclick="window.print()">
 
       <script>
           function refreshCanvas() {
           	var v = 0.5;
-            var a = document.getElementById("inputWidth").value - document.getElementById("D1").value - document.getElementById("D2").value;
-            var b = a - document.getElementById("y").value * 2;
-            var A = a + document.getElementById("x").value * 2 + document.getElementById("y").value * 2;
-            var B = b + document.getElementById("w").value * 2 + document.getElementById("z").value * 2;
+          	//门宽截板的坐标
+            var a = document.getElementById("inputWidth").value - document.getElementById("wD1").value - document.getElementById("wD2").value;
+            var b = a - document.getElementById("wy").value * 2;
+            var A = a + document.getElementById("wx").value * 2 + document.getElementById("wy").value * 2;
+            var B = b + document.getElementById("ww").value * 2 + document.getElementById("wz").value * 2;
 
             var p = 1000 - (1000 - A)/2;
             var w = document.getElementById("inputWidth").value;
@@ -42,24 +66,37 @@
             var context = canvas.getContext("2d");
             context.beginPath();
 
-            // context.clearRect(0, 0, canvas.width, canvas.height);
-            // context.moveTo(0,0);
-            // context.lineTo(0,p);
-            // context.lineTo(canvas.width,p);
-            // context.stroke();
-
+            //前门宽截板的标线
             context.clearRect(0, 0, canvas.width, canvas.height);
-            // context.moveTo(0,0);
-            context.moveTo(0,p * v);
-            context.lineTo(canvas.width,p * v);
+            context.moveTo(0,p*v);
+            context.lineTo(canvas.width,p*v);
+            context.fillText(p, canvas.width/2, (p+30)*v);
 
             context.moveTo(0,canvas.height - p*v);
             context.lineTo(canvas.width,canvas.height - p*v);
+            context.fillText(canvas.height - p*v, canvas.width/2, canvas.height - p*v -20*v);
             context.stroke();
             
-      		
+      		  //门高截板的坐标
+      		  var ha = document.getElementById("inputHeight").value - document.getElementById("hD1").value - document.getElementById("hD2").value;
+      		  var hA = ha + document.getElementById("hx").value * 2;
+      		  var hb = ha - document.getElementById("hD3").value;
+      		  var hB = hb + document.getElementById("hy").value * 2;
+            var hp = 2000 - (2000 - hA)/2;
+            context.moveTo(hp*v,0);
+            context.lineTo(hp*v,canvas.height);
+            context.fillText(hp, (hp - 30)*v, canvas.height/2);
+            context.moveTo(canvas.width - hp*v, 0);
+            context.lineTo(canvas.width - hp*v, canvas.height);
+            context.fillText(canvas.width - hp*v, canvas.width - hp*v - 20*v, canvas.height/2);
+
+            context.stroke();
+
+
+
+            // alert(p);
             
-            
+
 
             /*
             var w = document.getElementById("inputWidth").value;
@@ -76,11 +113,7 @@
           }
       </script>
 
-      <a href = "#" onclick = "alert(refreshCanvas.p)">点这里</a>
 
-      <!-- <pre>
-      	document.getElementById("inputWidth").value.width;
-      </pre> -->
 
    </body>
 </html>
