@@ -18,20 +18,20 @@
 
       <br>
       前板横向截取坐标
-      <input type="label" id="qianhengjiedianzuobiao1" value="0">
-      <input type="label" id="qianhengjiedianzuobiao2" value="0">
+      <input type="label" id="qianhengjiedianzuobiao1" value="0" readonly>
+      <input type="label" id="qianhengjiedianzuobiao2" value="0" readonly>
       <br>
       前板纵向截取坐标
-      <input type="label" id="qianzongjiedianzuobiao1" value="0">
-      <input type="label" id="qianzongjiedianzuobiao2" value="0">
+      <input type="label" id="qianzongjiedianzuobiao1" value="0" readonly> 
+      <input type="label" id="qianzongjiedianzuobiao2" value="0" readonly>
       <br>
       后板横向截取坐标
-      <input type="label" id="houhengjiedianzuobiao1" value="0">
-      <input type="label" id="houhengjiedianzuobiao2" value="0">
+      <input type="label" id="houhengjiedianzuobiao1" value="0" readonly>
+      <input type="label" id="houhengjiedianzuobiao2" value="0" readonly>
       <br>
       后板纵向截取坐标
-      <input type="label" id="houzongjiedianzuobiao1" value="0">
-      <input type="label" id="houzongjiedianzuobiao2" value="0">
+      <input type="label" id="houzongjiedianzuobiao1" value="0" readonly>
+      <input type="label" id="houzongjiedianzuobiao2" value="0" readonly>
 
       <br>
       <canvas id="graphCanvasHeng" width="800" height="1000" style="border:1px solid #000000;">
@@ -83,11 +83,42 @@
             contextFront.fillText(68, 640, 140);
             contextFront.lineTo(626,99);
             contextFront.fillText(9, 625, 98);
+
+          	//计算高度
+            var ha = document.getElementById("inputHeight").value - 80 - 7;
+            var hb = ha - 15;
+            var hA = ha + 2*15;
+            var hB = hb + 2*15;
+            var hp = 2000 - Math.round((2000 - hA)/2);//四舍五入
+            var hq = 2000 - Math.round((2000 - hB)/2);
+
+            document.getElementById("qianzongjiedianzuobiao1").value = hp;
+            document.getElementById("qianzongjiedianzuobiao2").value = 2000 - hp;
+
+            document.getElementById("houzongjiedianzuobiao1").value = hq;
+            document.getElementById("houzongjiedianzuobiao2").value = 2000 - hq;
+
+            //前门版纵截图
+            contextFront.moveTo(300, 300);
+            contextFront.lineTo(285, 300);
+            contextFront.fillText(15, 286, 295);
+            contextFront.lineTo(285, 800);
+            contextFront.fillText(ha, 260, 550);
+            contextFront.lineTo(300, 800);
+            contextFront.fillText(15, 286, 810);
+
+            contextFront.moveTo(287, 307);
+            contextFront.lineTo(302, 307);
+            contextFront.fillText(15, 288, 317);
+            contextFront.lineTo(302, 792);
+            contextFront.fillText(hb, 307, 550);
+            contextFront.lineTo(287, 792);
+            contextFront.fillText(15, 288, 790);
             contextFront.stroke();
 
-            // alert(p);
-          	
-            
+
+
+
 
 
             
